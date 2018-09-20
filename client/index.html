@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Borger</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    <link rel="stylesheet" href="styles.css">
+<body>
+    <header>
+        <h1 class="title">Borger - Twitter for cyborgs</h1>
+    </header>
+    <main>
+        <form class="borg-form">
+            <label for="name">--name</label>
+            <input class="u-full-width" type="text" id="name" name="name">
+            <label for="content">--content</label>
+            <textarea class="u-full-width" type="text" id="content" name="content"></textarea>
+            <button class="button-primary">Broadcast it</button>
+        </form>
+        <div class="loading">
+                <img src="loading.gif">
+        </div>
+        <div class="borgis"></div>
+    </main>
+    <script src="client.js"></script>
+</body>
+</html>
