@@ -1,11 +1,15 @@
 const express = require("express");
 const cors = require("cors");
 const monk = require("monk");
+const Filter = require("bad-words");
+const rateLimit = require("express-rate-limit");
+
+filter = new Filter();
 
 const app = express();
 
-const db = monk('localhost/borger');
-const borgi = db.get('borgi');
+const db = monk(process.env.MONGO_URI || 'localhost/borger');
+const borgi = db.get('borger');
 
 app.use(cors());
 app.use(express.json());
@@ -29,11 +33,16 @@ app.get('/borgi', (req, res) => {
         });
 });
 
+app.use(rateLimit({
+    windowMs: 10 * 1000, // 30 seconds
+    max: 1
+}));
+
 app.post('/borgi', (req, res) => {
     if(isValidBorg(req.body)){
         const borg = {
-            name: req.body.name.toString(),
-            content: req.body.content.toString(),
+            name: filter.clean(req.body.name.toString()),
+            content: filter.clean(req.body.content.toString()),
             created: new Date()
         }
         borgi

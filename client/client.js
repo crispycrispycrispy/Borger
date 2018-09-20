@@ -2,7 +2,7 @@ const form = document.querySelector('form');
 const loading = document.querySelector('.loading');
 const borgiElement = document.querySelector('.borgis')
 
-const API_URL = "http://localhost:5000/borgi";
+const API_URL = window.location.hostname === 'localhost' ? "http://localhost:5000/borgi" : "https://borger-api.now.sh/borgi";
 
 loading.style.display="";
 
@@ -27,10 +27,11 @@ form.addEventListener('submit', (event) => {
         }
     }).then(response => response.json())
     .then(createdBorg => {
-        //console.log(createdBorg);
         form.reset();
+        setTimeout(() => {
+            form.style.display="";
+        }, 10000);
         loading.style.display="none";
-        form.style.display="";
         listAllBorgis();
     });
 })
